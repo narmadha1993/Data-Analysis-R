@@ -1,0 +1,31 @@
+install.packages("rjson")
+install.packages("jsonlite")
+install.packages("ROAuth")
+install.packages("doBy")
+install.packages("gdata")
+install.packages("twitteR")
+install.packages("ggplot2")
+library("rjson")
+library("twitteR")
+library("jsonlite")
+library("ROAuth")
+library("ggplot2")
+library("doBy")
+library("gdata")
+require("gdata")
+data1 <- fromJSON(sprintf("[%s]", paste(readLines("C:\\Users\\Narmadha\\Desktop\\apt.json"), collapse=" , ")))
+d<- data.frame(data1)
+ggplot(d,aes(x=d$favoriteCount,y=d$retweetCount)) + geom_line(stat="identity")
+ggplot(d,aes(x=d$created,y=d$retweetCount)) + geom_point(stat="identity")
+occur<-data.frame(table(d$id))
+occ<-occur[occur$Freq>1,]
+occur[occur$id %in% occur$Var1[occur$Freq>1],]
+occur1<-data.frame(table(d$statusSource))
+occur1[occur$Freq>1,]
+View(d)
+bk <- read.xls("C:\\Users\\Narmadha\\Desktop\\ub sem 2\\dic\\doing_data_science-master\\dds_datasets\\rs\\rollingsales_brooklyn.xls",perl="C:\\Strawberry\\perl\\bin\\perl.exe",pattern="BOROUGH")
+x<-lm(bk$SALE.PRICE ~ bk$RESIDENTIAL.UNITS,data=data1)
+y<-bk$RESIDENTIAL.UNITS
+plot(bk$SALE.PRICE,log(y),data=data1)
+abline(x)
+
